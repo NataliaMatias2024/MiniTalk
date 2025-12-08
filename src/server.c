@@ -12,12 +12,26 @@
 
 #include "minitalk.h"
 
-int	main(int argc, char **argv)
+void signal_handler(int signum)
 {
-	if (argc >= 1)
-	{
-		teste_make("Server -> OK");
-		printf("%s\n", argv[1]);
-		count(argc);
-	}
+   
+    if (g_bit_count == 8)
+    {
+        printf("%c", g_char);//TODO: imprimir o char recebido ate agora
+    }
+}
+int main(void)
+{
+    struct sigaction sa;
+    
+    sa.sa_handler = signal_handler; //TODO
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    
+    sigaction(SIGUSR1, &sa, NULL);
+    sigaction(SIGUSR2, &sa, NULL);
+    
+    while (1)
+        pause();      
+    return 0;
 }

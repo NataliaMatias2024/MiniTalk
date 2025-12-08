@@ -19,6 +19,12 @@
 # include <signal.h>
 # include "../Libft/libft.h"
 
+typedef struct sigaction
+{
+	char	c;
+	int		bits;
+}			t_sigaction;
+
 void	teste_make(char *str);
 void	count(int argc);
 

@@ -12,12 +12,17 @@
 
 #include "minitalk.h"
 
-int	main(int argc, char **argv)
+void send_bist_char(int server_pid, char c)
 {
-	if (argc >= 1)
-	{
-		teste_make("Client -> OK");
-		printf("%s\n", argv[1]);
-		count(argc);
+    int	i;
+
+	i = 8;
+	while (i >= 0)
+    {
+		if ((c >> i) & 1)
+			kill(server_pid, SIGUSR2);  // Envia um bit (0 ou 1)
+		else
+			kill(server_pid, SIGUSR1); // Envia um bit (0 ou 1)
+       i--;
 	}
 }

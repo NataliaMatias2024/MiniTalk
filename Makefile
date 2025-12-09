@@ -6,7 +6,7 @@
 #    By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/06 14:57:23 by namatias          #+#    #+#              #
-#    Updated: 2025/12/07 11:27:37 by namatias         ###   ########.fr        #
+#    Updated: 2025/12/09 13:36:27 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,15 +50,16 @@ SERVER_BONUS_O = $(addprefix $(OBJ_DIR), $(SERVER_BONUS_C:.c=.o))
 
 all: $(LIBFT) $(NAME)
 
-$(SERVER): $(SERVER_FILES_O)
+$(SERVER): $(SERVER_FILES_O) $(LIBFT)
 	@$(CC) $(CFLAGS) $(SERVER_FILES_O) $(LDFLAGS) -o $(SERVER)
 	@echo "Server created"
 
-$(CLIENT): $(CLIENT_FILES_O)
+$(CLIENT): $(CLIENT_FILES_O) $(LIBFT)
 	@$(CC) $(CFLAGS) $(CLIENT_FILES_O) $(LDFLAGS) -o $(CLIENT)
 	@echo "Client created"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 $(LIBFT):
@@ -66,11 +67,11 @@ $(LIBFT):
 
 bonus: $(LIBFT) $(NAME_BONUS)
 
-$(SERVER_BONUS): $(SERVER_BONUS_O)
+$(SERVER_BONUS): $(SERVER_BONUS_O) $(LIBFT)
 	@$(CC) $(CFLAGS) $(SERVER_BONUS_O) $(LDFLAGS) -o $(SERVER_BONUS)
 	@echo "Server bonus created"
 
-$(CLIENT_BONUS): $(CLIENT_BONUS_O)
+$(CLIENT_BONUS): $(CLIENT_BONUS_O) $(LIBFT)
 	@$(CC) $(CFLAGS) $(CLIENT_BONUS_O) $(LDFLAGS) -o $(CLIENT_BONUS)
 	@echo "Client bonus created"
 

@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:22:22 by namatias          #+#    #+#             */
-/*   Updated: 2025/12/09 13:15:01 by namatias         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:11:13 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_signal
 }					t_signal;
 
 void	signal_handler(int signal, siginfo_t *infos_sigaction, void *empty);
+void	signal_sender(pid_t server_pid, unsigned char c);
 void	teste_make(char *str);
 void	count(int argc);
 
@@ -33,7 +34,7 @@ void	count(int argc);
 // ->int sigemptyset(sigset_t *set);
 // int sigaddset(sigset_t *set, int signum);
 // ->int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
-// int kill(pid_t pid, int sig);
+// -> int kill(pid_t pid, int sig);
 // ->pid_t getpid(void);
 // ->int pause(void);
 // unsigned int sleep(unsigned int seconds);

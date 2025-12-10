@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+         #
+#    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/06 14:57:23 by namatias          #+#    #+#              #
-#    Updated: 2025/12/09 13:53:26 by namatias         ###   ########.fr        #
+#    Updated: 2025/12/10 15:51:46 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,6 @@
 NAME =	$(CLIENT) $(SERVER)
 CLIENT = client
 SERVER = server
-
-NAME_BONUS = $(CLIENT_BONUS) $(SERVER_BONUS)
-CLIENT_BONUS = client_bonus
-SERVER_BONUS = server_bonus
 
 CC = cc
 CFLAGS = -g -Wall -Wextra -Werror
@@ -38,11 +34,6 @@ CLIENT_FILES_C = client.c utils.c
 SERVER_FILES_C = server.c utils.c
 CLIENT_FILES_O = $(addprefix $(OBJ_DIR), $(CLIENT_FILES_C:.c=.o))
 SERVER_FILES_O = $(addprefix $(OBJ_DIR), $(SERVER_FILES_C:.c=.o))
-
-CLIENT_BONUS_C = client_bonus.c utils.c
-SERVER_BONUS_C = server_bonus.c utils.c
-CLIENT_BONUS_O = $(addprefix $(OBJ_DIR), $(CLIENT_BONUS_C:.c=.o))
-SERVER_BONUS_O = $(addprefix $(OBJ_DIR), $(SERVER_BONUS_C:.c=.o))
 
 #******************************************************************************#
 #   				              Functions                                    #
@@ -65,16 +56,6 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 $(LIBFT):
 	@$(MAKE) -C $(LIB_DIR)
 
-bonus: $(LIBFT) $(NAME_BONUS)
-
-$(SERVER_BONUS): $(SERVER_BONUS_O) $(LIBFT)
-	@$(CC) $(CFLAGS) $(SERVER_BONUS_O) $(LDFLAGS) -o $(SERVER_BONUS)
-	@echo "Server bonus created"
-
-$(CLIENT_BONUS): $(CLIENT_BONUS_O) $(LIBFT)
-	@$(CC) $(CFLAGS) $(CLIENT_BONUS_O) $(LDFLAGS) -o $(CLIENT_BONUS)
-	@echo "Client bonus created"
-
 clean:
 	@rm -f $(OBJ_DIR)*.o
 	@$(MAKE) -C $(LIB_DIR) clean
@@ -82,7 +63,6 @@ clean:
 
 fclean:	clean
 	@rm	-f	$(NAME)
-	@rm -f	$(NAME_BONUS)
 	@$(MAKE) -C $(LIB_DIR) fclean
 	@echo "Files executable removed"
 

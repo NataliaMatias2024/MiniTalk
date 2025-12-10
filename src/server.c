@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+        */
+/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:22:51 by namatias          #+#    #+#             */
-/*   Updated: 2025/12/09 16:36:55 by namatias         ###   ########.fr       */
+/*   Updated: 2025/12/10 13:35:30 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@ void	signal_handler(int signal, siginfo_t *infos_sigaction, void *empty)
 	static t_signal		config;
 
 	(void) empty; //apenas para n dar warning de variavel nao utilizada
-
+	if (client->pid != infos_sigaction->si_pid)
+	{
+		config.bits_received = 0;
+		config.current_char = 0;
+		client_pid = infos_sigaction->si_pid
+	}
 	if (signal == SIGUSR1)
 		config.current_char |= (1 << config.bits_received);   //TODO : estudar bit wise
 	config.bits_received++;
-
+	//8 bits = 1byte = 1 char
 	if (config.bits_received == 8)
 	{
 		if (config.current_char == '\0')
@@ -34,7 +39,7 @@ void	signal_handler(int signal, siginfo_t *infos_sigaction, void *empty)
 		config.current_char = 0;
 	}
 	//Confirma recebimento, SIGUSR1 de volta para dizer "Ok, recebi o bit"
-	if (infos_sigaction && infos_sigaction->si_pid > 0)
+	if (infos_sigaction->si_pid > 0)
 		kill(infos_sigaction->si_pid, SIGUSR1);
 }
 
@@ -51,7 +56,7 @@ int	main(void)
 
 	sigemptyset(&s_sigaction.sa_mask);
 	s_sigaction.sa_sigaction = signal_handler;
-	s_sigaction.sa_flags = SA_SIGINFO;
+	s_sigaction.sa_flags = SA_SIGINFO;// ele que nos fornece o info->pid
 
 	sigaction(SIGUSR1, &s_sigaction, NULL);
 	sigaction(SIGUSR2, &s_sigaction, NULL);

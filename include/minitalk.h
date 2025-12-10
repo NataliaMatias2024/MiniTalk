@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namatias <namatias@42sp.org.br>            +#+  +:+       +#+        */
+/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:22:22 by namatias          #+#    #+#             */
-/*   Updated: 2025/12/09 16:11:13 by namatias         ###   ########.fr       */
+/*   Updated: 2025/12/10 13:44:29 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 typedef struct s_signal
 {
-	unsigned char	current_char;
-	int				bits_received;
+	static unsigned char	current_char;
+	static int				bits_received;
 }					t_signal;
 
 void	signal_handler(int signal, siginfo_t *infos_sigaction, void *empty);

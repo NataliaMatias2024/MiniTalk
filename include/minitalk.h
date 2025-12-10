@@ -6,7 +6,7 @@
 /*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:22:22 by namatias          #+#    #+#             */
-/*   Updated: 2025/12/10 13:44:29 by namatias         ###   ########.fr       */
+/*   Updated: 2025/12/10 17:58:21 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,9 @@
 
 typedef struct s_signal
 {
-	static unsigned char	current_char;
-	static int				bits_received;
+	unsigned char	current_char;
+	int				client_pid;
+	int				bits_received;
 }					t_signal;
-
-void	signal_handler(int signal, siginfo_t *infos_sigaction, void *empty);
-void	signal_sender(pid_t server_pid, unsigned char c);
-void	teste_make(char *str);
-void	count(int argc);
-
-// sighandler_t signal(int signum, sighandler_t handler);
-// ->int sigemptyset(sigset_t *set);
-// int sigaddset(sigset_t *set, int signum);
-// ->int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
-// -> int kill(pid_t pid, int sig);
-// ->pid_t getpid(void);
-// ->int pause(void);
-// unsigned int sleep(unsigned int seconds);
-// int usleep(useconds_t usec);
-// void exit(int status);
-
 
 #endif

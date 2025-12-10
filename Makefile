@@ -6,7 +6,7 @@
 #    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/06 14:57:23 by namatias          #+#    #+#              #
-#    Updated: 2025/12/10 15:51:46 by namatias         ###   ########.fr        #
+#    Updated: 2025/12/10 17:59:39 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ OBJ_DIR =	./obj/
 INC_DIR =	./include/
 LIB_DIR =	./Libft/
 
-CLIENT_FILES_C = client.c utils.c
-SERVER_FILES_C = server.c utils.c
+CLIENT_FILES_C = client.c
+SERVER_FILES_C = server.c
 CLIENT_FILES_O = $(addprefix $(OBJ_DIR), $(CLIENT_FILES_C:.c=.o))
 SERVER_FILES_O = $(addprefix $(OBJ_DIR), $(SERVER_FILES_C:.c=.o))
 

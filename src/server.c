@@ -48,13 +48,28 @@ int	main(void)
 	write(1, "Process ID (PID): ", 18);
 	ft_putnbr(pid);
 	write(1, "\n", 1);
+	//serve para zerar todos os valores que estejam na struct, o lixo de memoria. 
+	//Equivalente a iniciar uma variavel com valor 0 antes de realemente usa-la no codigo. 
 	sigemptyset(&s_sigaction.sa_mask);
-	s_sigaction.sa_sigaction = signal_handler;
+	//Ela permite que nosso sigaction recebe 3 parametros ao inves de 1. Basicamente avisa o sistema
+	//que queremos usar a versão mais moderna da função.
 	s_sigaction.sa_flags = SA_SIGINFO;
+	//Ao ativar o modo avançado (SA_SIGINFO) nós somos "obrigados" a usar o modo avançado para lidar com os
+	//sinais, por tando chamamos o sigaction, ao inves do handler padrao (só recebe signal)
+	s_sigaction.sa_sigaction = signal_handler;
+	//Os proximos 2 ifs são uma otimizaçao de linhas. Basicamente eu estou salvando as configurações feitas
+	//nas linahs anteriores e verificando se tudo foi definido corretamente.
+	//Passamos:
+	//1 - Os sinais iremos receber e utilizar no nosso programa (SINAIS ALVO).
+	//2 - O endereço da struct com as novas regras (flags) que definimos e nosso HANDLER.
+	//3 - NULL, O ultimo campo seria o backup da config antiga da struct, mas como nao vamos utiliza-la 
+	//o null indica que o sistema n precisa salvar nada.
+	// Caso tenha algum erro nas nossas definições anteriores a config nao é realizada e retorna erro (-1).
 	if (sigaction(SIGUSR1, &s_sigaction, NULL) == -1)
 		return (1);
 	if (sigaction(SIGUSR2, &s_sigaction, NULL) == -1)
 		return (1);
+	//É oq faz nosso server permanecer aberto e executando até que nós o encerremos ctrl + C
 	while (1)
 		pause();
 	return (0);
